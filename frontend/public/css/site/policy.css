@@ -1,0 +1,341 @@
+/* ==========================================================================
+   POLICY PAGES STYLESHEET (PARITY WITH AUTHENTIC MIR POLICY-PAGE.EJS)
+   ========================================================================== */
+
+.policy-page-container {
+  background: #FAF7F2;
+  min-height: 80vh;
+  padding-bottom: 60px;
+}
+
+.policy-hero {
+  background: linear-gradient(180deg, #F3ECE2 0%, #FAF7F2 100%);
+  padding: 32px 0 24px;
+  border-bottom: 1px solid rgba(142, 90, 53, 0.12);
+}
+
+.policy-hero .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.breadcrumb-nav {
+  margin-bottom: 16px;
+}
+
+.breadcrumb-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.88rem;
+  color: #8E7D71;
+}
+
+.breadcrumb-list a {
+  color: #8E7D71;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+
+.breadcrumb-list a:hover {
+  color: var(--wood-accent, #8E5A35);
+}
+
+.breadcrumb-list .separator {
+  font-size: 0.72rem;
+  opacity: 0.6;
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb-list .current {
+  color: var(--wood-dark, #2C1810);
+  font-weight: 600;
+}
+
+.policy-hero-content {
+  margin-top: 8px;
+}
+
+.policy-main-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--wood-dark, #2C1810);
+  margin: 0 0 8px 0;
+  line-height: 1.25;
+}
+
+.policy-hero-subtitle {
+  font-size: 1.05rem;
+  color: #6B5B52;
+  margin: 0;
+}
+
+.policy-body-section {
+  padding-top: 36px;
+}
+
+.policy-body-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.policy-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.policy-article-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 36px 40px;
+  border: 1px solid rgba(142, 90, 53, 0.12);
+  box-shadow: 0 4px 20px rgba(44, 24, 16, 0.04);
+}
+
+.policy-html-content {
+  color: #332721;
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.policy-html-content p {
+  margin-bottom: 16px;
+  color: #4A3B32;
+  line-height: 1.8;
+}
+
+.policy-html-content p:last-child {
+  margin-bottom: 0;
+}
+
+.policy-html-content ul,
+.policy-html-content ol {
+  margin-top: 8px;
+  margin-bottom: 18px;
+  padding-left: 24px;
+  color: #4A3B32;
+}
+
+.policy-html-content ul {
+  list-style-type: disc;
+}
+
+.policy-html-content ol {
+  list-style-type: decimal;
+}
+
+.policy-html-content li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+.policy-html-content strong,
+.policy-html-content b {
+  color: var(--wood-dark, #2C1810);
+  font-weight: 700;
+}
+
+.policy-block {
+  margin-bottom: 28px;
+}
+
+.policy-block:last-child {
+  margin-bottom: 0;
+}
+
+.policy-block h3,
+.policy-html-content h1,
+.policy-html-content h2,
+.policy-html-content h3,
+.policy-html-content h4 {
+  color: var(--wood-dark, #2C1810);
+  font-weight: 800;
+  line-height: 1.35;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.policy-html-content h1:first-child,
+.policy-html-content h2:first-child,
+.policy-html-content h3:first-child,
+.policy-html-content h4:first-child,
+.policy-block:first-child h3 {
+  margin-top: 0;
+}
+
+.policy-block h3 {
+  font-size: 1.25rem;
+}
+
+.policy-block-body {
+  color: #4A3B32;
+  font-size: 0.98rem;
+  line-height: 1.75;
+}
+
+.policy-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.policy-sidebar-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  padding: 22px;
+  border: 1px solid rgba(142, 90, 53, 0.12);
+  box-shadow: 0 4px 16px rgba(44, 24, 16, 0.03);
+}
+
+.sidebar-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--wood-dark, #2C1810);
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sidebar-card-title svg {
+  color: var(--wood-accent, #8E5A35);
+}
+
+.policy-sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.policy-sidebar-links li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #4A3B32;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.15s ease;
+}
+
+.policy-sidebar-links li a:hover {
+  background: #F5EFEB;
+  color: var(--wood-accent, #8E5A35);
+}
+
+.policy-sidebar-links li.active a {
+  background: var(--wood-accent, #8E5A35) !important;
+  color: #FFFFFF !important;
+}
+
+.policy-sidebar-links li.active a svg {
+  color: #FFFFFF !important;
+}
+
+.assistance-card {
+  text-align: center;
+  background: linear-gradient(135deg, #FAF7F2 0%, #F5EFEB 100%);
+  border: 1px solid rgba(142, 90, 53, 0.18);
+}
+
+.assistance-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--wood-accent, #8E5A35);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+}
+
+.assistance-icon-box svg {
+  color: #FFFFFF;
+}
+
+.assistance-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--wood-dark, #2C1810);
+  margin: 0 0 6px 0;
+}
+
+.assistance-desc {
+  font-size: 0.88rem;
+  color: #6B5B52;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.assistance-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.assistance-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.assistance-actions .btn-outline {
+  background: #FFFFFF;
+  color: var(--wood-dark, #2C1810);
+  border: 1px solid rgba(142, 90, 53, 0.3);
+}
+
+.assistance-actions .btn-outline:hover {
+  background: #FAF7F2;
+  border-color: var(--wood-accent, #8E5A35);
+  color: var(--wood-accent, #8E5A35);
+}
+
+.assistance-actions .btn-whatsapp {
+  background: #25D366;
+  color: #FFFFFF;
+  border: 1px solid #25D366;
+}
+
+.assistance-actions .btn-whatsapp:hover {
+  background: #20BA5A;
+  border-color: #20BA5A;
+}
+
+@media (max-width: 991px) {
+  .policy-layout-grid {
+    grid-template-columns: 1fr;
+  }
+  .policy-article-card {
+    padding: 24px 20px;
+  }
+  .policy-main-title {
+    font-size: 1.8rem;
+  }
+}

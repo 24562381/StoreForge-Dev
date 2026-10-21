@@ -1,0 +1,441 @@
+/* ==========================================================================
+   GLOBAL DESIGN SYSTEM & FOUNDATION (GLOBALS.CSS)
+   Universal styles required across all pages:
+   Tokens, Resets, Base Typography, Container, Buttons, Form Controls,
+   Alerts, Utilities, and Core Visual FX.
+   ========================================================================== */
+
+:root {
+  /* Fonts */
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: 'Cinzel', 'Playfair Display', Georgia, serif;
+  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Kalpurush", "SolaimanLipi", sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Kalpurush", "SolaimanLipi", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Surface & Content Colors */
+  --color-bg: #FBF9F5;
+  --page-bg-gradient: linear-gradient(180deg, #F5EDE4 0%, #FBF9F5 100%);
+  --color-surface: #FFFFFF;
+  --color-surface-soft: #F4EFEB;
+  --color-text-main: #1D1E20;
+  --color-text-muted: #666970;
+  --color-text-light: #94979E;
+
+  /* Woodcraft & Gold Signature Palette */
+  --wood-dark: #2B1D14;
+  --wood-rich: #543724;
+  --wood-accent: #8E5A35;
+  --wood-gold: #C08A46;
+  --wood-gold-light: #F7EAD7;
+  --accent-gold: #D4AF37;
+
+  /* Dark Theme Accents */
+  --dark-bg: #14171A;
+  --dark-surface: #1E2226;
+  --dark-border: #2E343A;
+  --dark-text: #F1F3F5;
+
+  /* Feedback Colors */
+  --success: #1E8E4F;
+  --success-light: #E8F7EE;
+  --warning: #D97706;
+  --danger: #DC2626;
+
+  /* UI Tokens */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 9999px;
+  --shadow-sm: 0 2px 6px rgba(43, 29, 20, 0.04);
+  --shadow-md: 0 10px 25px rgba(43, 29, 20, 0.08);
+  --shadow-lg: 0 20px 45px rgba(43, 29, 20, 0.12);
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  overflow-x: clip;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  background-image: var(--page-bg-gradient);
+  background-repeat: no-repeat;
+  color: var(--color-text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1ebd9;
+}
+::-webkit-scrollbar-thumb {
+  background: #c59b4c;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a47b2c;
+}
+
+/* Layout Container & Section Base */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 80px 0;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.text-muted { color: var(--color-text-muted); }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-text-main);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.section-header {
+  margin-bottom: 48px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--wood-accent);
+  background: var(--wood-gold-light);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+}
+
+.section-tag.order-tag {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.section-title {
+  font-size: 2.35rem;
+  margin-bottom: 14px;
+  letter-spacing: -0.5px;
+}
+
+.section-desc {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Universal Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 26px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--wood-rich) 0%, var(--wood-accent) 100%);
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(84, 55, 36, 0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--wood-dark) 0%, var(--wood-rich) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(84, 55, 36, 0.35);
+  color: #FFFFFF;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--wood-accent);
+  color: var(--wood-accent);
+}
+
+.btn-outline:hover {
+  background: var(--wood-accent);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.btn-whatsapp {
+  background-color: #25D366;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+.btn-whatsapp:hover {
+  background-color: #1EBE5B;
+  color: #FFFFFF;
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
+
+.btn-lg {
+  padding: 16px 32px;
+  font-size: 1.05rem;
+}
+
+.btn-xl {
+  padding: 18px 36px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-text {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-text-muted);
+  padding: 6px 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-text:hover {
+  color: var(--wood-dark);
+  text-decoration: underline;
+}
+
+/* Global Form Elements */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  margin-bottom: 6px;
+}
+
+.form-label .required {
+  color: var(--danger);
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--color-text-main);
+  background: var(--color-surface);
+  border: 1.5px solid #CBD5E1;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  border-color: var(--wood-accent);
+  box-shadow: 0 0 0 3.5px rgba(142, 90, 53, 0.15);
+}
+
+select.form-control {
+  height: 44px;
+  background-color: var(--color-surface);
+  cursor: pointer;
+}
+
+textarea.form-control {
+  min-height: 90px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.form-hint {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+/* Universal Alerts */
+.alert {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-error {
+  background: #FEF2F2;
+  color: #991B1B;
+  border: 1px solid #FECACA;
+}
+
+.alert-success {
+  background: #F0FDF4;
+  color: #166534;
+  border: 1px solid #BBF7D0;
+}
+
+/* Universal Utilities */
+.d-flex { display: flex !important; }
+.d-inline-flex { display: inline-flex !important; }
+.d-block { display: block !important; }
+.d-none { display: none !important; }
+.flex-column { flex-direction: column !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+.justify-between { justify-content: space-between !important; }
+.justify-center { justify-content: center !important; }
+.justify-end { justify-content: flex-end !important; }
+.align-center, .align-items-center { align-items: center !important; }
+.align-start { align-items: flex-start !important; }
+.align-items-end { align-items: flex-end !important; }
+
+.gap-1 { gap: 4px !important; }
+.gap-2 { gap: 8px !important; }
+.gap-3 { gap: 16px !important; }
+.gap-4 { gap: 24px !important; }
+
+.w-100 { width: 100% !important; }
+.cursor-pointer { cursor: pointer !important; }
+.font-mono { font-family: var(--font-mono) !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: 4px !important; }
+.mb-2 { margin-bottom: 8px !important; }
+.mb-3 { margin-bottom: 16px !important; }
+.mb-4 { margin-bottom: 24px !important; }
+.mb-5 { margin-bottom: 32px !important; }
+.mt-1 { margin-top: 4px !important; }
+.mt-2 { margin-top: 8px !important; }
+.mt-3 { margin-top: 16px !important; }
+.mt-4 { margin-top: 24px !important; }
+.my-4 { margin-top: 24px !important; margin-bottom: 24px !important; }
+.my-5 { margin-top: 40px !important; margin-bottom: 40px !important; }
+
+.me-1 { margin-right: 4px !important; }
+.me-2 { margin-right: 8px !important; }
+.me-3 { margin-right: 16px !important; }
+.ms-1 { margin-left: 4px !important; }
+.ms-2 { margin-left: 8px !important; }
+.ms-auto { margin-left: auto !important; }
+
+.py-5 { padding-top: 48px !important; padding-bottom: 48px !important; }
+
+/* Visual FX & Glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 137, 45, 0.2);
+}
+
+.wood-gradient {
+  background: linear-gradient(135deg, #2b170c 0%, #462512 50%, #1a0d06 100%);
+}
+
+.gold-gradient {
+  background: linear-gradient(135deg, #d2a746 0%, #dfc276 50%, #b8892d 100%);
+}
+
+.gold-text {
+  color: #b8892d;
+  background: linear-gradient(135deg, #d2a746 0%, #dfc276 50%, #b8892d 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.pulse-glow {
+  box-shadow: 0 0 0 0 rgba(142, 90, 53, 0.5);
+  animation: pulse-shadow 2.5s infinite;
+}
+
+@keyframes pulse-shadow {
+  0% { box-shadow: 0 0 0 0 rgba(142, 90, 53, 0.5); }
+  70% { box-shadow: 0 0 0 14px rgba(142, 90, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(142, 90, 53, 0); }
+}
+
+/* Error View Containers */
+.error-box, .error-admin-wrap {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 40px 24px;
+}
+.error-icon {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 992px) {
+  .d-lg-flex { display: flex !important; }
+}
+
+

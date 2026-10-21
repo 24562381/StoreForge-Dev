@@ -1,0 +1,156 @@
+/* ==========================================================================
+   PAYMENT GATEWAY & PAYMENT STATUS STYLES (PAYMENT.CSS)
+   bKash Payment Gateway Transitions, Retry Flows, and Status Screens
+   ========================================================================== */
+
+.payment-status-container {
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.payment-status-card {
+  background: var(--color-surface, #FFFFFF);
+  border-radius: var(--radius-lg, 18px);
+  padding: 40px 32px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 1px solid rgba(43, 29, 20, 0.08);
+}
+
+.status-icon-wrapper {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  margin-bottom: 22px;
+}
+
+.status-icon-cancelled {
+  background: #FEF3C7;
+  color: #B45309;
+}
+
+.status-icon-failed {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.status-icon-success {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+.payment-status-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--color-text-main);
+  line-height: 1.25;
+}
+
+.payment-status-desc {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 26px;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.order-mini-summary {
+  background: #F8FAFC;
+  border-radius: var(--radius-md);
+  padding: 22px;
+  text-align: left;
+  margin-bottom: 28px;
+  border: 1px solid #E2E8F0;
+}
+
+.mini-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.mini-summary-row strong {
+  color: var(--color-text-main);
+}
+
+.mini-summary-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  border-top: 1px dashed #CBD5E1;
+  padding-top: 12px;
+  margin-top: 10px;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.mini-total-price {
+  color: #E2136E;
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.payment-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-bkash-retry {
+  background: #E2136E !important;
+  border-color: #E2136E !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(226, 19, 110, 0.3);
+}
+
+.btn-bkash-retry:hover {
+  background: #C20E5C !important;
+  transform: translateY(-2px);
+}
+
+.btn-switch-cod {
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  color: #334155;
+  font-weight: 600;
+}
+
+.btn-switch-cod:hover {
+  background: #F1F5F9;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+
+.btn-back-home {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin-top: 6px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-back-home:hover {
+  color: var(--wood-accent);
+}
+
+@media (max-width: 576px) {
+  .payment-status-card {
+    padding: 28px 18px;
+  }
+  .payment-status-title {
+    font-size: 1.35rem;
+  }
+}

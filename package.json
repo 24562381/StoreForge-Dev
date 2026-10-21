@@ -1,0 +1,62 @@
+{
+  "name": "storeforge-engine",
+  "version": "2.0.0",
+  "description": "Modern Next.js & NestJS Multi-Theme Production E-Commerce Platform",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "admin"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\" \"npm run dev --workspace=admin\"",
+    "build": "npm run build --workspace=backend && npm run build --workspace=frontend && npm run build --workspace=admin",
+    "start": "node start.js",
+    "start:backend": "node start.js --backend-only",
+    "start:frontend": "node start.js --frontend-only",
+    "start:admin": "node start.js --admin-only",
+    "stop": "node stop.js",
+    "stop:backend": "node stop.js --backend-only",
+    "stop:frontend": "node stop.js --frontend-only",
+    "stop:admin": "node stop.js --admin-only",
+    "start:all": "concurrently \"npm run start:prod --workspace=backend\" \"npm run start --workspace=frontend\" \"npm run start --workspace=admin\"",
+    "bundle:precompiled": "node scripts/bundle-precompiled.js",
+    "db:sync": "node scripts/db-sync.js",
+    "db:backup": "node scripts/db-backup.js",
+    "db:merge": "node scripts/db-sync.js",
+    "prisma:generate": "node -e \"require('dotenv').config({path:'.env'}); require('child_process').execSync('npx prisma generate --schema=backend/prisma/schema.prisma', {stdio:'inherit', env: process.env})\"",
+    "prisma:migrate": "node -e \"require('dotenv').config({path:'.env'}); require('child_process').execSync('npx prisma migrate dev --schema=backend/prisma/schema.prisma', {stdio:'inherit', env: process.env})\"",
+    "prisma:push": "node -e \"require('dotenv').config({path:'.env'}); require('child_process').execSync('npx prisma db push --schema=backend/prisma/schema.prisma', {stdio:'inherit', env: process.env})\"",
+    "prisma:reset": "node -e \"require('dotenv').config({path:'.env'}); require('child_process').execSync('npx prisma db push --force-reset --schema=backend/prisma/schema.prisma', {stdio:'inherit', env: process.env})\"",
+    "prisma:seed": "node -e \"require('dotenv').config({path:'.env'}); require('child_process').execSync('npx ts-node backend/prisma/seed.ts', {stdio:'inherit', env: process.env})\"",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:db": "docker compose up -d postgres",
+    "docker:build": "docker compose build",
+    "docker:logs": "docker compose logs -f"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "postcss-selector-parser": "^7.1.6",
+    "prisma": "^5.22.0",
+    "uuid": "^11.1.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "overrides": {
+    "braces": "^3.0.3",
+    "uuid": "^11.1.1",
+    "exceljs": {
+      "uuid": "^11.1.1"
+    },
+    "postcss-selector-parser": "^7.1.6",
+    "tailwindcss": {
+      "postcss-selector-parser": "^7.1.6"
+    },
+    "postcss-nested": {
+      "postcss-selector-parser": "^7.1.6"
+    }
+  }
+}

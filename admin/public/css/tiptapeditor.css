@@ -1,0 +1,419 @@
+/* ==========================================================================
+   TIPTAP EDITOR & RICH TEXT STYLESHEET (tiptapeditor.css)
+   Dedicated styling for TipTap visual editor & rendered rich HTML content
+   ========================================================================== */
+
+/* Core Editor & Content Container */
+.tiptap,
+.ProseMirror,
+.tiptap-content,
+.why-us-prose,
+.product-description-content,
+.policy-html-content {
+  outline: none !important;
+  word-break: break-word;
+  color: #1e293b;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.65;
+}
+
+/* Paragraphs */
+.tiptap p,
+.ProseMirror p,
+.tiptap-content p,
+.why-us-prose p,
+.product-description-content p,
+.policy-html-content p {
+  margin-top: 0;
+  margin-bottom: 0.875rem;
+  line-height: 1.65;
+}
+
+.tiptap p:last-child,
+.ProseMirror p:last-child,
+.tiptap-content p:last-child,
+.why-us-prose p:last-child,
+.product-description-content p:last-child,
+.policy-html-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Headings */
+.tiptap h1,
+.ProseMirror h1,
+.tiptap-content h1,
+.why-us-prose h1,
+.product-description-content h1,
+.policy-html-content h1 {
+  display: block;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-top: 1.35rem;
+  margin-bottom: 0.65rem;
+  letter-spacing: -0.02em;
+}
+
+.tiptap h2,
+.ProseMirror h2,
+.tiptap-content h2,
+.why-us-prose h2,
+.product-description-content h2,
+.policy-html-content h2 {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+  margin-top: 1.15rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.015em;
+}
+
+.tiptap h3,
+.ProseMirror h3,
+.tiptap-content h3,
+.why-us-prose h3,
+.product-description-content h3,
+.policy-html-content h3 {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.35;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.tiptap h4,
+.ProseMirror h4,
+.tiptap-content h4,
+.why-us-prose h4,
+.product-description-content h4,
+.policy-html-content h4 {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-top: 0.875rem;
+  margin-bottom: 0.3rem;
+}
+
+/* First heading reset */
+.tiptap > h1:first-child,
+.tiptap > h2:first-child,
+.tiptap > h3:first-child,
+.ProseMirror > h1:first-child,
+.ProseMirror > h2:first-child,
+.ProseMirror > h3:first-child,
+.tiptap-content > h1:first-child,
+.tiptap-content > h2:first-child,
+.tiptap-content > h3:first-child,
+.why-us-prose > h1:first-child,
+.why-us-prose > h2:first-child,
+.why-us-prose > h3:first-child,
+.product-description-content > h1:first-child,
+.product-description-content > h2:first-child,
+.product-description-content > h3:first-child,
+.policy-html-content > h1:first-child,
+.policy-html-content > h2:first-child,
+.policy-html-content > h3:first-child {
+  margin-top: 0;
+}
+
+/* Bold & Italic */
+.tiptap strong,
+.tiptap b,
+.ProseMirror strong,
+.ProseMirror b,
+.tiptap-content strong,
+.tiptap-content b,
+.why-us-prose strong,
+.why-us-prose b,
+.product-description-content strong,
+.product-description-content b,
+.policy-html-content strong,
+.policy-html-content b {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.tiptap em,
+.tiptap i,
+.ProseMirror em,
+.ProseMirror i,
+.tiptap-content em,
+.tiptap-content i,
+.why-us-prose em,
+.why-us-prose i,
+.product-description-content em,
+.product-description-content i,
+.policy-html-content em,
+.policy-html-content i {
+  font-style: italic;
+}
+
+.tiptap u,
+.ProseMirror u,
+.tiptap-content u,
+.why-us-prose u,
+.product-description-content u,
+.policy-html-content u {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tiptap s,
+.tiptap strike,
+.tiptap del,
+.ProseMirror s,
+.ProseMirror strike,
+.ProseMirror del,
+.tiptap-content s,
+.tiptap-content strike,
+.tiptap-content del,
+.why-us-prose s,
+.product-description-content s,
+.policy-html-content s,
+.policy-html-content strike {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+/* Lists */
+.tiptap ul,
+.ProseMirror ul,
+.tiptap-content ul,
+.why-us-prose ul,
+.product-description-content ul,
+.policy-html-content ul {
+  list-style-type: disc !important;
+  padding-left: 1.75rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.875rem !important;
+}
+
+.tiptap ol,
+.ProseMirror ol,
+.tiptap-content ol,
+.why-us-prose ol,
+.product-description-content ol,
+.policy-html-content ol {
+  list-style-type: decimal !important;
+  padding-left: 1.75rem !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.875rem !important;
+}
+
+.tiptap li,
+.ProseMirror li,
+.tiptap-content li,
+.why-us-prose li,
+.product-description-content li,
+.policy-html-content li {
+  display: list-item !important;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+  line-height: 1.6;
+}
+
+.tiptap li > p,
+.ProseMirror li > p,
+.tiptap-content li > p,
+.why-us-prose li > p,
+.product-description-content li > p,
+.policy-html-content li > p {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  display: inline;
+}
+
+/* Nested lists */
+.tiptap ul ul,
+.tiptap ol ul,
+.ProseMirror ul ul,
+.ProseMirror ol ul,
+.tiptap-content ul ul,
+.tiptap-content ol ul,
+.why-us-prose ul ul,
+.product-description-content ul ul {
+  list-style-type: circle !important;
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.tiptap ul ol,
+.tiptap ol ol,
+.ProseMirror ul ol,
+.ProseMirror ol ol,
+.tiptap-content ul ol,
+.tiptap-content ol ol,
+.why-us-prose ul ol,
+.product-description-content ul ol {
+  list-style-type: lower-alpha !important;
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Blockquotes */
+.tiptap blockquote,
+.ProseMirror blockquote,
+.tiptap-content blockquote,
+.why-us-prose blockquote,
+.product-description-content blockquote,
+.policy-html-content blockquote {
+  border-left: 4px solid #c08a46;
+  padding: 0.625rem 1.125rem;
+  margin: 1rem 0;
+  background-color: #faf7f2;
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: #543724;
+  font-style: italic;
+}
+
+.tiptap blockquote p,
+.ProseMirror blockquote p,
+.tiptap-content blockquote p,
+.why-us-prose blockquote p,
+.product-description-content blockquote p,
+.policy-html-content blockquote p {
+  margin: 0;
+}
+
+/* Horizontal Rules */
+.tiptap hr,
+.ProseMirror hr,
+.tiptap-content hr,
+.why-us-prose hr,
+.product-description-content hr,
+.policy-html-content hr {
+  border: none;
+  border-top: 1.5px solid #e2e8f0;
+  margin: 1.35rem 0;
+}
+
+/* Code & Pre */
+.tiptap code,
+.ProseMirror code,
+.tiptap-content code,
+.why-us-prose code,
+.product-description-content code,
+.policy-html-content code {
+  background-color: #f1f5f9;
+  color: #b45309;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+}
+
+.tiptap pre,
+.ProseMirror pre,
+.tiptap-content pre,
+.why-us-prose pre,
+.product-description-content pre,
+.policy-html-content pre {
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.85em;
+  padding: 0.875rem 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  line-height: 1.5;
+}
+
+.tiptap pre code,
+.ProseMirror pre code,
+.tiptap-content pre code,
+.why-us-prose pre code,
+.product-description-content pre code,
+.policy-html-content pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Links */
+.tiptap a,
+.ProseMirror a,
+.tiptap-content a,
+.why-us-prose a,
+.product-description-content a,
+.policy-html-content a,
+.tiptap-link {
+  color: #b8892d;
+  text-decoration: underline;
+  text-underline-offset: 2.5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.tiptap a:hover,
+.ProseMirror a:hover,
+.tiptap-content a:hover,
+.why-us-prose a:hover,
+.product-description-content a:hover,
+.policy-html-content a:hover,
+.tiptap-link:hover {
+  color: #9b6c22;
+}
+
+/* Highlights */
+.tiptap mark,
+.ProseMirror mark,
+.tiptap-content mark,
+.why-us-prose mark,
+.product-description-content mark,
+.policy-html-content mark {
+  background-color: #fef08a;
+  color: #713f12;
+  padding: 0.1rem 0.25rem;
+  border-radius: 0.2rem;
+}
+
+/* Text Alignments */
+.tiptap [style*="text-align: center"],
+.ProseMirror [style*="text-align: center"],
+.tiptap-content [style*="text-align: center"],
+.why-us-prose [style*="text-align: center"] {
+  text-align: center !important;
+}
+
+.tiptap [style*="text-align: right"],
+.ProseMirror [style*="text-align: right"],
+.tiptap-content [style*="text-align: right"],
+.why-us-prose [style*="text-align: right"] {
+  text-align: right !important;
+}
+
+.tiptap [style*="text-align: justify"],
+.ProseMirror [style*="text-align: justify"],
+.tiptap-content [style*="text-align: justify"],
+.why-us-prose [style*="text-align: justify"] {
+  text-align: justify !important;
+}
+
+.tiptap [style*="text-align: left"],
+.ProseMirror [style*="text-align: left"],
+.tiptap-content [style*="text-align: left"],
+.why-us-prose [style*="text-align: left"] {
+  text-align: left !important;
+}
+
+/* Placeholder */
+.tiptap p.is-editor-empty:first-child::before,
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #94a3b8;
+  pointer-events: none;
+  height: 0;
+  font-style: italic;
+}

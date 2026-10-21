@@ -1,0 +1,54 @@
+/* ==========================================================================
+   CUSTOMER REVIEWS MODERATION (REVIEWS.CSS)
+   Rating Stars, Testimonial Preview, Moderation Dropdown, Review Modal
+   ========================================================================== */
+
+.stars-gold {
+  color: #F59E0B;
+  display: flex;
+  gap: 3px;
+  font-size: 0.85rem;
+}
+
+.review-preview-text {
+  max-width: 320px;
+  font-style: italic;
+  color: #334155;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #CBD5E1;
+  margin-bottom: 12px;
+  display: inline-block;
+}
+
+.empty-state h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--admin-text-main);
+  margin-bottom: 6px;
+}
+
+.empty-state p {
+  color: var(--admin-text-muted);
+  font-size: 0.88rem;
+}
+
+.date-text {
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  white-space: nowrap;
+}

@@ -1,0 +1,15 @@
+/* ==========================================================================
+   ADMIN DASHBOARD MASTER STYLESHEET
+   Aggregates core main.css, admin layout, and administrative modules
+   ========================================================================== */
+@import "/css/main.css";
+@import "/css/icons.css";
+@import "/css/dashboard/layout.css";
+@import "/css/dashboard/dashboard.css";
+@import "/css/dashboard/orders.css";
+@import "/css/dashboard/order-detail.css";
+@import "/css/dashboard/products.css";
+@import "/css/dashboard/settings.css";
+@import "/css/dashboard/reviews.css";
+@import "/css/dashboard/translations.css";
+@import "/css/dashboard/responsive.css";

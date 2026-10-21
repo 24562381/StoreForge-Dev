@@ -1,0 +1,34 @@
+# ==============================================================================
+# 🛍️ StoreForge Platform — cPanel / Apache Reverse Proxy Configuration
+# ==============================================================================
+# Instructions:
+# 1. Rename this file to `.htaccess` in your public_html or document root.
+# 2. Ensure Apache modules `mod_rewrite` and `mod_proxy` (mod_proxy_http) are enabled.
+# 3. In cPanel "Setup Node.js App", select `server.js` as the Application Startup File.
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # 1. Reverse Proxy for Backend REST API (/api/* -> http://127.0.0.1:8585/api/*)
+    RewriteRule ^api/(.*)$ http://127.0.0.1:8585/api/$1 [P,L]
+    RewriteRule ^api$ http://127.0.0.1:8585/api/ [P,L]
+
+    # 2. Reverse Proxy for Uploaded Media Files (/uploads/* -> http://127.0.0.1:8585/uploads/*)
+    RewriteRule ^uploads/(.*)$ http://127.0.0.1:8585/uploads/$1 [P,L]
+
+    # 3. Reverse Proxy for Admin Portal (optional path-based routing: /admin -> :4000)
+    # RewriteRule ^admin/(.*)$ http://127.0.0.1:4000/admin/$1 [P,L]
+    # RewriteRule ^admin$ http://127.0.0.1:4000/admin [P,L]
+
+    # 4. Reverse Proxy for Customer Storefront (all other routes -> http://127.0.0.1:3000)
+    RewriteCond %{REQUEST_URI} !^/api
+    RewriteCond %{REQUEST_URI} !^/uploads
+    RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
+</IfModule>
+
+<IfModule mod_proxy.c>
+    ProxyPreserveHost On
+    ProxyPassReverse / http://127.0.0.1:3000/
+</IfModule>

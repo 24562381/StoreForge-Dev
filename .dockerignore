@@ -1,0 +1,37 @@
+# Git & system metadata
+.git
+.gitignore
+.agents
+.optimize
+.bugfix
+.audit
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Dependencies & Build artifacts
+node_modules
+*/node_modules
+.next
+*/.next
+dist
+*/dist
+out
+*/out
+
+# Logs & temp files
+*.log
+logs
+*.tmp
+*.bak
+.pids.json
+*.pid
+
+# Database dumps & local storage
+backups
+*.sql
+pgdata
+
+# Precompiled export directory
+PRECOMPILED_OUTPUT

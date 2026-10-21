@@ -1,0 +1,1 @@
+/Applications/ServBay/package/postgresql/18/18.6/bin/postgres "-D" "/Users/sakib/Importent/mir_converted/backend/prisma/pgdata" "-p" "5433" "-k" "/Users/sakib/Importent/mir_converted/backend/prisma/pgdata"

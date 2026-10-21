@@ -1,0 +1,129 @@
+# ==============================================================================
+# 🛍️ StoreForge Platform — Nginx Reverse Proxy Configuration (VPS)
+# ==============================================================================
+# Instructions:
+# 1. Copy this configuration to `/etc/nginx/sites-available/storeforge`.
+# 2. Symlink to `/etc/nginx/sites-enabled/`:
+#    ln -s /etc/nginx/sites-available/storeforge /etc/nginx/sites-enabled/
+# 3. Test & reload Nginx:
+#    nginx -t && systemctl reload nginx
+# ==============================================================================
+
+# 1. HTTP Redirect to HTTPS (All domains)
+server {
+    listen 80;
+    listen [::]:80;
+    server_name yourstore.com www.yourstore.com admin.yourstore.com;
+
+    # Let's Encrypt ACME challenge location
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    # Redirect all HTTP traffic to HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# Secure Sanitized Access Log Format (Logs clean $uri without query parameters to prevent token/secret leakage)
+log_format sanitized_combined '$remote_addr - $remote_user [$time_local] '
+                              '"$request_method $uri $server_protocol" $status $body_bytes_sent '
+                              '"$http_referer" "$http_user_agent"';
+
+# 2. Customer Storefront & API Gateway (HTTPS)
+server {
+    access_log /var/log/nginx/storeforge_access.log sanitized_combined;
+    error_log /var/log/nginx/storeforge_error.log warn;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name yourstore.com www.yourstore.com;
+
+    # SSL Certificates (managed via Certbot / Let's Encrypt)
+    # ssl_certificate /etc/letsencrypt/live/yourstore.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/yourstore.com/privkey.pem;
+
+    client_max_body_size 25M;
+
+    # Security Headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Block exposed source maps (.map files)
+    location ~* \.map$ {
+        return 404;
+    }
+
+    # Backend REST API
+    location /api/ {
+        proxy_pass http://127.0.0.1:8585/api/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Static Uploads Directory
+    location /uploads/ {
+        proxy_pass http://127.0.0.1:8585/uploads/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800, immutable";
+    }
+
+    # Next.js Storefront
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+# 3. Dedicated Admin Portal (HTTPS)
+server {
+    access_log /var/log/nginx/storeforge_admin_access.log sanitized_combined;
+    error_log /var/log/nginx/storeforge_admin_error.log warn;
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name admin.yourstore.com;
+
+    # SSL Certificates (managed via Certbot / Let's Encrypt)
+    # ssl_certificate /etc/letsencrypt/live/admin.yourstore.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/admin.yourstore.com/privkey.pem;
+
+    client_max_body_size 25M;
+
+    # Security Headers (Prevent framing entirely for admin panel)
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Block exposed source maps (.map files)
+    location ~* \.map$ {
+        return 404;
+    }
+
+    # Next.js Admin Portal
+    location / {
+        proxy_pass http://127.0.0.1:4000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}

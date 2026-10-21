@@ -1,0 +1,411 @@
+/* ==========================================================================
+   SETTINGS & DELIVERY CONFIGURATION (SETTINGS.CSS)
+   Delivery Fees, Homepage, Defaults, AI, Policy Editors & Security
+   ========================================================================== */
+
+.settings-management-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   MODERN SEGMENTED CONTROLS / SETTINGS TAB CARDS (DIMENSIONAL 4x2 GRID)
+   ========================================================================== */
+.settings-tabs-container {
+  display: block;
+  width: 100%;
+  background: #FFFFFF;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
+}
+
+.settings-section-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .settings-section-tabs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .settings-section-tabs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.settings-management-page .tab-btn,
+.settings-section-tabs .tab-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #E2E8F0 !important;
+  background: #F8FAFC !important;
+  color: #334155 !important;
+  font-family: inherit;
+  cursor: pointer;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  text-align: left;
+}
+
+/* Icon Badges */
+.settings-management-page .tab-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.05rem;
+  transition: all 0.2s ease;
+}
+
+.tab-icon-wrap.icon-general {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #DBEAFE;
+}
+.tab-icon-wrap.icon-homepage {
+  background: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+.tab-icon-wrap.icon-defaults {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+.tab-icon-wrap.icon-ai {
+  background: #EEF2FF;
+  color: #4F46E5;
+  border: 1px solid #C7D2FE;
+}
+.tab-icon-wrap.icon-privacy {
+  background: #ECFDF5;
+  color: #0D9488;
+  border: 1px solid #99F6E4;
+}
+.tab-icon-wrap.icon-terms {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}
+.tab-icon-wrap.icon-returns {
+  background: #FFF7ED;
+  color: #EA580C;
+  border: 1px solid #FFEDD5;
+}
+.tab-icon-wrap.icon-security {
+  background: #FAF5FF;
+  color: #7E22CE;
+  border: 1px solid #E9D5FF;
+}
+
+/* Tab Typography */
+.settings-management-page .tab-text-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.settings-management-page .tab-step-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94A3B8;
+  line-height: 1;
+}
+
+.settings-management-page .tab-title {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #1E293B;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.25;
+}
+
+/* Hover State */
+.settings-management-page .tab-btn:hover {
+  background: #FFFFFF !important;
+  border-color: #CBD5E1 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+}
+
+.settings-management-page .tab-btn:focus-visible {
+  outline: 2px solid #3B82F6 !important;
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   RICH ACTIVE TAB GRADIENT THEMES
+   ========================================================================== */
+.settings-management-page .tab-btn.active {
+  transform: translateY(-1px);
+}
+
+.settings-management-page .tab-btn.active .tab-icon-wrap {
+  background: rgba(255, 255, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  color: #FFFFFF !important;
+}
+
+.settings-management-page .tab-btn.active .tab-icon-wrap i {
+  color: #FFFFFF !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+.settings-management-page .tab-btn.active .tab-step-tag {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.settings-management-page .tab-btn.active .tab-title {
+  color: #FFFFFF !important;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+/* Tab 1: Delivery & Contact */
+#tab-btn-general.active {
+  background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 100%) !important;
+  border-color: #1D4ED8 !important;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35) !important;
+}
+
+/* Tab 2: Homepage & Banner */
+#tab-btn-homepage.active {
+  background: linear-gradient(135deg, #78350F 0%, #D97706 100%) !important;
+  border-color: #B45309 !important;
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.35) !important;
+}
+
+/* Tab 3: Product Defaults */
+#tab-btn-product-defaults.active {
+  background: linear-gradient(135deg, #064E3B 0%, #059669 100%) !important;
+  border-color: #047857 !important;
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.35) !important;
+}
+
+/* Tab 4: AI Configuration */
+#tab-btn-ai.active {
+  background: linear-gradient(135deg, #3730A3 0%, #4F46E5 100%) !important;
+  border-color: #4338CA !important;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35) !important;
+}
+
+/* Tab 5: Privacy Policy */
+#tab-btn-privacy.active {
+  background: linear-gradient(135deg, #115E59 0%, #0D9488 100%) !important;
+  border-color: #0F766E !important;
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.35) !important;
+}
+
+/* Tab 6: Terms & Conditions */
+#tab-btn-terms.active {
+  background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%) !important;
+  border-color: #2563EB !important;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.35) !important;
+}
+
+/* Tab 7: Return & Refund */
+#tab-btn-returns.active {
+  background: linear-gradient(135deg, #9A3412 0%, #EA580C 100%) !important;
+  border-color: #C2410C !important;
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.35) !important;
+}
+
+/* Tab 8: Admin Security */
+#tab-btn-security.active {
+  background: linear-gradient(135deg, #581C87 0%, #7E22CE 100%) !important;
+  border-color: #6B21A8 !important;
+  box-shadow: 0 6px 18px rgba(126, 34, 206, 0.35) !important;
+}
+
+/* ==========================================================================
+   SETTINGS PANELS & FORM CONTROLS
+   ========================================================================= */
+.form-help {
+  font-size: 0.78rem;
+  color: var(--admin-text-muted, #64748B);
+  margin-top: 5px;
+  display: block;
+}
+
+.settings-section-divider {
+  border-top: 1px solid var(--admin-border, #E2E8F0);
+  margin: 28px 0;
+}
+
+.default-product-color-rows {
+  margin-bottom: 12px;
+}
+
+.default-product-color-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 70px auto;
+  align-items: end;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--admin-border, #E2E8F0);
+}
+
+.default-product-color-row:first-child {
+  border-top: none;
+  padding-top: 4px;
+}
+
+.default-product-color-row .form-group {
+  margin-bottom: 0 !important;
+}
+
+.default-product-color-row .form-control {
+  height: 42px;
+  box-sizing: border-box;
+}
+
+.default-product-color-row input[type="color"] {
+  width: 46px;
+  height: 42px;
+  padding: 3px;
+  border: 1px solid var(--admin-border, #E2E8F0);
+  border-radius: 6px;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.default-product-color-row .remove-default-color {
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 16px;
+  margin-bottom: 0;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+  background: #FEF2F2;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.default-product-color-row .remove-default-color:hover {
+  background: #DC2626;
+  color: #FFFFFF;
+  border-color: #DC2626;
+}
+
+#btnConfirmRemoveColor {
+  background: #DC2626 !important;
+  border-color: #DC2626 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25) !important;
+}
+
+#btnConfirmRemoveColor:hover {
+  background: #B91C1C !important;
+  border-color: #B91C1C !important;
+}
+
+/* Product Defaults Grid: Keep cards at their natural content height */
+.product-defaults-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(400px, 1.35fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.product-defaults-colors-panel {
+  align-self: start;
+}
+
+@media (max-width: 992px) {
+  .product-defaults-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* AI Provider Selection Cards */
+.ai-provider-card {
+  display: block;
+  padding: 12px 14px;
+  background: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.ai-provider-card:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  transform: translateY(-1px);
+}
+.ai-provider-card.is-active {
+  background: #EEF2FF !important;
+  border-color: #6366F1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+
+.settings-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--admin-border, #E2E8F0);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-sm, 0 4px 12px rgba(0, 0, 0, 0.05));
+  position: sticky;
+  bottom: 20px;
+  z-index: 50;
+  margin-top: 24px;
+}
+
+@media (max-width: 992px) {
+  .admin-grid-2 {
+    grid-template-columns: 1fr;
+  }
+  .order-section-tabs,
+  .settings-section-tabs {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .default-product-color-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .settings-save-bar {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    text-align: center;
+  }
+}

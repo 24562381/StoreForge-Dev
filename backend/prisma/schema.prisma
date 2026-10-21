@@ -1,0 +1,324 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(100)
+  email            String   @unique @db.VarChar(150)
+  password         String   @db.VarChar(255)
+  role             String   @default("admin") @db.VarChar(50)
+  phone            String?  @db.VarChar(50)
+  photo            String?  @db.Text
+  nidNumber        String?  @map("nid_number") @db.VarChar(100)
+  nidPhoto         String?  @map("nid_photo") @db.Text
+  presentAddress   String?  @map("present_address") @db.Text
+  permanentAddress String?  @map("permanent_address") @db.Text
+  permissions      String?  @db.Text
+  isActive         Boolean  @default(true) @map("is_active")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(150)
+  slug        String    @unique @db.VarChar(180)
+  description String?   @db.Text
+  imageUrl    String?   @map("image_url") @db.Text
+  status      String    @default("active") @db.VarChar(50)
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+  products    Product[]
+
+  @@index([status, sortOrder], name: "idx_categories_status_sort")
+  @@map("categories")
+}
+
+model Product {
+  id               Int              @id @default(autoincrement())
+  categoryId       Int?             @map("category_id")
+  name             String           @db.VarChar(255)
+  slug             String           @unique @db.VarChar(255)
+  tagline          String?          @db.VarChar(255)
+  shortDescription String?          @map("short_description") @db.Text
+  fullDescription  String?          @map("full_description") @db.Text
+  warningText      String?          @map("warning_text") @db.Text
+  hasSizeVariants  Boolean          @default(true) @map("has_size_variants")
+  hasColorVariants Boolean          @default(false) @map("has_color_variants")
+  isExclusive      Boolean          @default(false) @map("is_exclusive")
+  status           String           @default("active") @db.VarChar(50)
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @default(now()) @updatedAt @map("updated_at")
+
+  category         Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  variants         ProductVariant[]
+  colors           ProductColor[]
+  images           ProductImage[]
+  features         Feature[]
+  reviews          Review[]
+  orderItems       OrderItem[]
+
+  @@index([categoryId, status], name: "idx_products_category_status")
+  @@index([status, createdAt], name: "idx_products_status_created")
+  @@map("products")
+}
+
+model ProductColor {
+  id              Int              @id @default(autoincrement())
+  productId       Int              @map("product_id")
+  name            String           @db.VarChar(100)
+  colourHex       String?          @map("colour_hex") @db.VarChar(7)
+  priceAdjustment Decimal          @default(0) @map("price_adjustment") @db.Decimal(10, 2)
+  createdAt       DateTime         @default(now()) @map("created_at")
+
+  product         Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variants        ProductVariant[]
+  images          ProductImage[]
+
+  @@unique([productId, name])
+  @@map("product_colors")
+}
+
+model ProductVariant {
+  id            Int           @id @default(autoincrement())
+  productId     Int           @map("product_id")
+  colorId       Int?          @map("color_id")
+  sizeName      String        @map("size_name") @db.VarChar(100)
+  dimensions    String?       @db.VarChar(100)
+  colour        String?       @default("Natural Oak & Walnut") @db.Text
+  colourHex     String?       @map("colour_hex") @db.VarChar(7)
+  price         Decimal       @db.Decimal(10, 2)
+  originalPrice Decimal?      @map("original_price") @db.Decimal(10, 2)
+  stockStatus   String        @default("in_stock") @map("stock_status") @db.VarChar(50)
+  isDefault     Boolean       @default(false) @map("is_default")
+  sortOrder     Int           @default(0) @map("sort_order")
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @default(now()) @updatedAt @map("updated_at")
+
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  color         ProductColor? @relation(fields: [colorId], references: [id], onDelete: SetNull)
+  orderItems    OrderItem[]
+
+  @@index([productId, sortOrder], name: "idx_variants_product_sort")
+  @@map("product_variants")
+}
+
+model ProductImage {
+  id           Int           @id @default(autoincrement())
+  productId    Int           @map("product_id")
+  colorId      Int?          @map("color_id")
+  imageUrl     String        @map("image_url") @db.Text
+  thumbnailUrl String?       @map("thumbnail_url") @db.Text
+  altText      String?       @map("alt_text") @db.VarChar(255)
+  title        String?       @db.VarChar(255)
+  isPrimary    Boolean       @default(false) @map("is_primary")
+  sortOrder    Int           @default(0) @map("sort_order")
+  createdAt    DateTime      @default(now()) @map("created_at")
+
+  product      Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
+  color        ProductColor? @relation(fields: [colorId], references: [id], onDelete: SetNull)
+
+  @@index([productId, sortOrder], name: "idx_images_product_sort")
+  @@map("product_images")
+}
+
+model Feature {
+  id          Int      @id @default(autoincrement())
+  productId   Int      @map("product_id")
+  title       String   @db.VarChar(150)
+  description String?  @db.Text
+  icon        String?  @db.VarChar(100)
+  sortOrder   Int      @default(0) @map("sort_order")
+
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder], name: "idx_features_product_sort")
+  @@map("features")
+}
+
+model Order {
+  id             Int         @id @default(autoincrement())
+  orderNumber    String      @unique @map("order_number") @db.VarChar(50)
+  customerName   String      @map("customer_name") @db.VarChar(150)
+  phone          String      @db.VarChar(50)
+  email          String?     @db.VarChar(150)
+  address        String      @db.Text
+  district       String      @db.VarChar(50)
+  areaThana      String?     @map("area_thana") @db.VarChar(100)
+  deliveryNote   String?     @map("delivery_note") @db.Text
+  subtotal       Decimal     @db.Decimal(10, 2)
+  deliveryCharge Decimal     @map("delivery_charge") @db.Decimal(10, 2)
+  promoCode      String?     @map("promo_code") @db.VarChar(50)
+  discountAmount Decimal     @default(0) @map("discount_amount") @db.Decimal(10, 2)
+  total          Decimal     @db.Decimal(10, 2)
+  paymentMethod  String      @default("cod") @map("payment_method") @db.VarChar(50)
+  status         String      @default("pending") @db.VarChar(50)
+  customerNote   String?     @map("customer_note") @db.Text
+  adminNote      String?     @map("admin_note") @db.Text
+  accessToken    String?     @map("access_token") @db.VarChar(64)
+  ipAddress      String?     @map("ip_address") @db.VarChar(45)
+  paymentStatus  String      @default("unpaid") @map("payment_status") @db.VarChar(50)
+  paymentId      String?     @map("payment_id") @db.VarChar(100)
+  trxId          String?     @map("trx_id") @db.VarChar(100)
+  paymentDetails Json?       @map("payment_details")
+  refundTrxId    String?     @map("refund_trx_id") @db.VarChar(100)
+  createdAt      DateTime    @default(now()) @map("created_at")
+  updatedAt      DateTime    @default(now()) @updatedAt @map("updated_at")
+
+  items          OrderItem[]
+
+  @@index([accessToken], name: "idx_orders_access_token")
+  @@index([paymentId], name: "idx_orders_payment_id")
+  @@index([trxId], name: "idx_orders_trx_id")
+  @@index([status, paymentStatus], name: "idx_orders_status_payment")
+  @@index([phone], name: "idx_orders_phone")
+  @@index([createdAt], name: "idx_orders_created_at")
+  @@map("orders")
+}
+
+model PromoCode {
+  id                Int       @id @default(autoincrement())
+  code              String    @unique @db.VarChar(50)
+  description       String?   @db.Text
+  discountType      String    @default("fixed") @map("discount_type") @db.VarChar(20)
+  discountValue     Decimal   @map("discount_value") @db.Decimal(10, 2)
+  minOrderAmount    Decimal?  @default(0) @map("min_order_amount") @db.Decimal(10, 2)
+  maxDiscountAmount Decimal?  @map("max_discount_amount") @db.Decimal(10, 2)
+  usageLimit        Int?      @map("usage_limit")
+  usedCount         Int       @default(0) @map("used_count")
+  startDate         DateTime? @map("start_date")
+  endDate           DateTime? @map("end_date")
+  isActive          Boolean   @default(true) @map("is_active")
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@index([isActive, code], name: "idx_promo_codes_active_code")
+  @@map("promo_codes")
+}
+
+model OrderItem {
+  id          Int             @id @default(autoincrement())
+  orderId     Int             @map("order_id")
+  productId   Int?            @map("product_id")
+  variantId   Int?            @map("variant_id")
+  productName String          @map("product_name") @db.VarChar(255)
+  sizeName    String          @map("size_name") @db.VarChar(100)
+  unitPrice   Decimal         @map("unit_price") @db.Decimal(10, 2)
+  quantity    Int             @default(1)
+  totalPrice  Decimal         @map("total_price") @db.Decimal(10, 2)
+  colour      String?         @db.VarChar(255)
+  colourHex   String?         @map("colour_hex") @db.VarChar(7)
+
+  order       Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variant     ProductVariant? @relation(fields: [variantId], references: [id], onDelete: SetNull)
+
+  @@index([orderId], name: "idx_order_items_order_id")
+  @@map("order_items")
+}
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  productId     Int?     @map("product_id")
+  customerName  String   @map("customer_name") @db.VarChar(100)
+  rating        Int
+  reviewText    String   @map("review_text") @db.Text
+  customerImage String?  @map("customer_image") @db.Text
+  location      String?  @db.VarChar(100)
+  phone         String?  @db.VarChar(50)
+  orderNumber   String?  @map("order_number") @db.VarChar(50)
+  isPublished   Boolean  @default(true) @map("is_published")
+  isFeatured    Boolean  @default(false) @map("is_featured")
+  sortOrder     Int      @default(0) @map("sort_order")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  product       Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, isPublished], name: "idx_reviews_product_published")
+  @@index([isPublished, isFeatured, sortOrder], name: "idx_reviews_published_featured_sort")
+  @@map("reviews")
+}
+
+model Faq {
+  id          Int      @id @default(autoincrement())
+  question    String   @db.Text
+  answer      String   @db.Text
+  isPublished Boolean  @default(true) @map("is_published")
+  sortOrder   Int      @default(0) @map("sort_order")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([isPublished, sortOrder], name: "idx_faqs_published_sort")
+  @@map("faqs")
+}
+
+model AiAgent {
+  id             String   @id @db.VarChar(100)
+  name           String   @db.VarChar(255)
+  protocol       String   @default("openai") @db.VarChar(50)
+  apiKey         String?  @default("") @map("api_key") @db.Text
+  baseUrl        String?  @default("") @map("base_url") @db.Text
+  keyUrl         String?  @default("") @map("key_url") @db.Text
+  keyLabel       String?  @default("") @map("key_label") @db.VarChar(255)
+  keyPlaceholder String?  @default("") @map("key_placeholder") @db.VarChar(255)
+  models         Json?    @default("[]")
+  selectedModel  String?  @default("") @map("selected_model") @db.VarChar(255)
+  isCustom       Boolean  @default(false) @map("is_custom")
+  sortOrder      Int      @default(0) @map("sort_order")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @default(now()) @updatedAt @map("updated_at")
+
+  @@map("ai_agents")
+}
+
+model Setting {
+  key         String    @id @db.VarChar(100)
+  value       String    @db.Text
+  description String?   @db.Text
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@map("settings")
+}
+
+model Translation {
+  id          Int       @id @default(autoincrement())
+  key         String    @unique @db.VarChar(100)
+  category    String?   @default("general") @db.VarChar(50)
+  bn          String    @db.Text
+  en          String    @db.Text
+  description String?   @db.Text
+  updatedAt   DateTime? @default(now()) @updatedAt @map("updated_at")
+
+  @@index([category], name: "idx_translations_category")
+  @@map("translations")
+}
+
+model CustomizationRequest {
+  id              Int       @id @default(autoincrement())
+  customerName    String    @map("customer_name") @db.VarChar(150)
+  customerPhone   String    @map("customer_phone") @db.VarChar(50)
+  customerEmail   String?   @map("customer_email") @db.VarChar(150)
+  customerAddress String?   @map("customer_address") @db.Text
+  preferredSize   String?   @map("preferred_size") @db.VarChar(100)
+  preferredColor  String?   @map("preferred_color") @db.VarChar(100)
+  description     String    @db.Text
+  referenceImage  String?   @map("reference_image") @db.Text
+  estimatedBudget String?   @map("estimated_budget") @db.VarChar(100)
+  status          String    @default("pending") @db.VarChar(50)
+  adminNotes      String?   @map("admin_notes") @db.Text
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @default(now()) @updatedAt @map("updated_at")
+
+  @@index([status, createdAt], name: "idx_customization_requests_status")
+  @@map("customization_requests")
+}
+
+

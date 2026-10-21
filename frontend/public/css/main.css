@@ -1,0 +1,5 @@
+/* ==========================================================================
+   CORE DESIGN SYSTEM (MAIN.CSS)
+   Re-exports globals.css for backwards compatibility.
+   ========================================================================== */
+@import "/css/globals.css";

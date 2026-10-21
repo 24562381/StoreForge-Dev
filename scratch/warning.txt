@@ -1,0 +1,101 @@
+Please do no delete this file. Even do not touch this file. 
+If you delete this file I will be very angry.
+
+
+<script>
+(function () {
+  var COOKIE = 'sf_warning_modal';
+ 
+  // Already accepted? Do nothing.
+  if (document.cookie.split('; ').some(function (c) { return c === COOKIE + '=true'; })) return;
+ 
+  // ---- Edit the text here ----
+  var TEXT = {
+    en: {
+      chip: 'Beta version',
+      title: 'This website is still under development',
+      body: 'We are still building and testing this website. Some features may not work as expected and details may change. Thank you for your patience.',
+      btn: 'I understand'
+    },
+    bn: {
+      chip: 'বেটা ভার্সন',
+      title: 'ওয়েবসাইটটি এখনও নির্মাণাধীন',
+      body: 'আমরা এখনও ওয়েবসাইটটি তৈরি ও পরীক্ষা করছি। কিছু ফিচার ঠিকমতো কাজ নাও করতে পারে এবং তথ্য পরিবর্তন হতে পারে। আপনার ধৈর্যের জন্য ধন্যবাদ।',
+      btn: 'বুঝেছি'
+    }
+  };
+ 
+  // Picks Bangla when the page language starts with "bn", otherwise English.
+  // If your site stores the language somewhere else, change this line.
+  var lang = /^bn/i.test(document.documentElement.lang || '') ? 'bn' : 'en';
+  var t = TEXT[lang];
+ 
+  var CSS = '\
+  .sfwm-overlay{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;\
+    padding:16px;background:rgba(43,27,17,.55);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);\
+    font-family:inherit;animation:sfwm-fade .25s ease-out}\
+  .sfwm-card{box-sizing:border-box;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow-y:auto;\
+    background:#fff;border:1px solid #eadfd5;border-radius:24px;padding:clamp(22px,5vw,32px);text-align:center;\
+    box-shadow:0 1px 2px rgba(120,70,30,.06),0 24px 60px rgba(60,30,10,.35);animation:sfwm-pop .3s cubic-bezier(.2,.9,.3,1.2)}\
+  .sfwm-card *{box-sizing:border-box}\
+  .sfwm-icon{width:60px;height:60px;margin:0 auto 14px;border-radius:18px;display:grid;place-items:center;color:#fff;\
+    background:linear-gradient(135deg,#f08a2c,#c9531a);box-shadow:0 8px 18px rgba(200,90,26,.32)}\
+  .sfwm-icon svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}\
+  .sfwm-chip{display:inline-block;margin-bottom:12px;padding:4px 12px;border-radius:99px;background:#fde8a9;color:#92520b;\
+    border:1px solid #f3cf6e;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}\
+  .sfwm-title{margin:0 0 10px;font-size:clamp(20px,5vw,24px);font-weight:800;line-height:1.25;letter-spacing:-.015em;color:#111827}\
+  .sfwm-body{margin:0 0 22px;font-size:15px;line-height:1.6;color:#4b5563;overflow-wrap:anywhere}\
+  .sfwm-btn{width:100%;padding:14px 20px;border:0;border-radius:14px;cursor:pointer;font:700 16px/1.2 inherit;font-family:inherit;color:#fff;\
+    background:linear-gradient(90deg,#8f5733,#c4864f);box-shadow:0 8px 20px rgba(143,87,51,.28);transition:filter .15s,transform .15s}\
+  .sfwm-btn:hover{filter:brightness(1.07);transform:translateY(-1px)}\
+  .sfwm-btn:focus-visible{outline:2px solid #8f5733;outline-offset:3px}\
+  @keyframes sfwm-fade{from{opacity:0}to{opacity:1}}\
+  @keyframes sfwm-pop{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}\
+  @media (prefers-reduced-motion:reduce){.sfwm-overlay,.sfwm-card{animation:none}}';
+ 
+  function show() {
+    var style = document.createElement('style');
+    style.textContent = CSS;
+    document.head.appendChild(style);
+ 
+    var overlay = document.createElement('div');
+    overlay.className = 'sfwm-overlay';
+    overlay.innerHTML =
+      '<div class="sfwm-card" role="dialog" aria-modal="true" aria-labelledby="sfwm-title" aria-describedby="sfwm-body">' +
+        '<div class="sfwm-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4z"/></svg></div>' +
+        '<span class="sfwm-chip"></span>' +
+        '<h2 class="sfwm-title" id="sfwm-title"></h2>' +
+        '<p class="sfwm-body" id="sfwm-body"></p>' +
+        '<button type="button" class="sfwm-btn" id="sf-warning-close"></button>' +
+      '</div>';
+    overlay.querySelector('.sfwm-chip').textContent = t.chip;
+    overlay.querySelector('.sfwm-title').textContent = t.title;
+    overlay.querySelector('.sfwm-body').textContent = t.body;
+    var btn = overlay.querySelector('#sf-warning-close');
+    btn.textContent = t.btn;
+ 
+    var prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.body.appendChild(overlay);
+    btn.focus();
+ 
+    function close() {
+      document.cookie = COOKIE + '=true; path=/; max-age=31536000; SameSite=Lax';
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener('keydown', onKey);
+      overlay.remove();
+      style.remove();
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') close();
+      if (e.key === 'Tab') { e.preventDefault(); btn.focus(); } // keep focus inside the modal
+    }
+    btn.addEventListener('click', close);
+    document.addEventListener('keydown', onKey);
+  }
+ 
+  // Works whether the script sits in <head> or at the end of <body>.
+  if (document.body) show();
+  else document.addEventListener('DOMContentLoaded', show);
+})();
+</script>
